@@ -8,7 +8,7 @@
 out
 gen
 
-.gitignore
+*.zip
 
-CM10227_CW2_DoD.iml
+.gitignore
 

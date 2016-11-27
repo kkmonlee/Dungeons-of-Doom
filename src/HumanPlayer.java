@@ -43,6 +43,13 @@ public class HumanPlayer
     public static void main(String[] args)
     {
         System.out.println("BANTER");
+        char[][] banter2 = {{'1','2','3'}, {'7','8','9'}};
+        GameLogic banter = new GameLogic();
+        String esc = banter.look(banter2);
+        System.out.println(esc);
+
+        banter.quitGame();
+
     }
 
 

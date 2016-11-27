@@ -39,9 +39,15 @@ public class GameLogic
     *
     * @return : A string representation of the game map.
     */
-    protected String look()
+    protected String look(char[][] map)
     {
-        return null;
+        String wholeMap = "";
+        for (int i = 0; i < map.length; i++)
+        {
+            for (int j = 0; j < map[0].length; j++) wholeMap += map[i][j] + " ";
+            wholeMap += "\n";
+        }
+        return wholeMap;
     }
 
     /*
@@ -59,6 +65,6 @@ public class GameLogic
     */
     protected void quitGame()
     {
-
+        System.exit(0);
     }
 }
