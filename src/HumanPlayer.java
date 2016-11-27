@@ -1,0 +1,10 @@
+/**
+ * Created by lb809 on 27/11/2016.
+ */
+public class HumanPlayer
+{
+    public static void main(String[] args)
+    {
+
+    }
+}
