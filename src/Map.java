@@ -6,6 +6,8 @@
 
 public class Map
 {
+    char[][] map = new char[2][5];
+
     /*
     * @return : Gold required to exit the current map.
     */
@@ -27,7 +29,7 @@ public class Map
     */
     protected int getMapHeight()
     {
-        return 0;
+        return map.length;
     }
 
     /*
@@ -35,7 +37,7 @@ public class Map
     */
     protected int getMapWidth()
     {
-        return 0;
+        return map[0].length;
     }
 
     /*
