@@ -34,18 +34,20 @@ public class HumanPlayer
         {
             case "HELLO":
                 return "h";
-            case "MOVEN":
+            case "MOVE N":
                 return "mn";
-            case "MOVES":
+            case "MOVE S":
                 return "ms";
-            case "MOVEE":
+            case "MOVE E":
                 return "me";
-            case "MOVEW":
+            case "MOVE W":
                 return "mw";
             case "PICKUP":
                 return "p";
             case "LOOK":
                 return "l";
+            case "QUIT":
+                return "q";
             default:
                 return "i";
         }
@@ -58,27 +60,62 @@ public class HumanPlayer
     protected void selectNextAction() throws IOException
     {
         HumanPlayer humanPlayer = new HumanPlayer();
+        GameLogic gameLogic = new GameLogic();
+        Map map = new Map();
+
+        System.out.println("Please input your next move: ");
         String response = humanPlayer.processCommand(humanPlayer.getInputFromConsole());
+
+        switch (response)
+        {
+
+            case "h":
+                System.out.println(gameLogic.hello());
+                break;
+            case "mn":
+                gameLogic.move('n');
+                break;
+            case "ms":
+                gameLogic.move('s');
+                break;
+            case "me":
+                gameLogic.move('e');
+                break;
+            case "mw":
+                gameLogic.move('w');
+                break;
+            case "p":
+                gameLogic.pickup();
+                break;
+            case "l":
+                System.out.println(gameLogic.look(map.getMap()));
+                break;
+            case "q":
+                gameLogic.gameFlick();
+                break;
+            case "i":
+                System.out.println("Invalid input, please try again.");
+            default:
+                selectNextAction();
+        }
 
 
     }
 
     /*
-    * Main function
+    * 1st Main function
     */
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
-        System.out.println("BANTER");
-        char[][] banter2 = {{'1','2','3'}, {'7','8','9'}};
-        Map banter3 = new Map();
+        System.out.println("Welcome to the game: Dungeons of Doom!");
+        HumanPlayer humanPlayer = new HumanPlayer();
+        GameLogic gameLogic = new GameLogic();
 
-        GameLogic banter = new GameLogic();
-        String esc = banter.look(banter2);
-        System.out.println(esc);
+        while (gameLogic.gameRunning())
+        {
+            humanPlayer.selectNextAction();
+        }
 
-        System.out.println(banter3.getMapHeight());
-        System.out.println(banter3.getMapWidth());
-
-
+        gameLogic.quitGame();
     }
 }

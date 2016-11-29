@@ -6,13 +6,23 @@
 
 public class GameLogic
 {
+    private static boolean running = true;
+
     /*
     *
     * @return : if the game is running
     */
     protected boolean gameRunning()
     {
-        return false;
+        return running;
+    }
+
+    /*
+    * Changes the state of running to false.
+    */
+    protected void gameFlick()
+    {
+        running = false;
     }
 
     /*
@@ -21,7 +31,8 @@ public class GameLogic
     */
     protected String hello()
     {
-        return null;
+        Map map = new Map();
+        return String.valueOf(map.getGoldRequired());
     }
 
     /*

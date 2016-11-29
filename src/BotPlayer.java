@@ -33,4 +33,12 @@ public class BotPlayer
     {
         return 'a';
     }
+
+    /*
+    * 2nd Main function
+    */
+    public static void main(String[] args)
+    {
+
+    }
 }

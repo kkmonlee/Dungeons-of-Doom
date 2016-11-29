@@ -6,14 +6,22 @@
 
 public class Map
 {
-    char[][] map = new char[2][5];
+    char[][] map =  {   {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#' },
+                        {'#','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','#' },
+                        {'#','.','.','.','.','.','.','G','.','.','.','.','.','.','.','.','E','.','#' },
+                        {'#','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','#' },
+                        {'#','.','.','E','.','.','.','.','.','.','.','.','.','.','.','.','.','.','#' },
+                        {'#','.','.','.','.','.','.','.','.','.','.','G','.','.','.','.','.','.','#' },
+                        {'#','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','#' },
+                        {'#','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','#' },
+                        {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#' }   };
 
     /*
     * @return : Gold required to exit the current map.
     */
     protected int getGoldRequired()
     {
-        return 0;
+        return 20;
     }
 
     /*
@@ -21,7 +29,7 @@ public class Map
     */
     protected char[][] getMap()
     {
-        return null;
+        return map;
     }
 
     /*
@@ -68,7 +76,7 @@ public class Map
 
     /*
     * Retrieves a tile on the map. If the location requested is outside bounds of the map, it retuns 'X' wall.
-    * @param coordinated: Coordinates of the tile as a 2D array.
+    * @param coordinates: Coordinates of the tile as a 2D array.
     * @return : What the tile at the location requested contains.
     */
     protected char getTile(int[] coordinates)
