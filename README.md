@@ -12,8 +12,9 @@ the command is successful, an action takes place. A full list of the available
 commands, the game-protocol, is available below.
 
 The game ends either:
-- When the player has collected enough gold and moves onto the exit square
+- When the player has collected enough gold and moves onto the exit square.
 - When the Bot catches (moves onto the same square as) the Player.
+- When the player enters 'QUIT'.
 
 # Author
 Created by Leon Boehmer in November 2016.
