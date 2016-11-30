@@ -51,7 +51,8 @@ public class GameLogic
 
         switch (direction)
         {
-            //
+            case 'n':
+                //if (Character.toString(mapClass.getTile({playerPosition[0] - 1, playerPosition[1]}).equals(".")) System.out.println("BANTER");
         }
         return null;
     }
