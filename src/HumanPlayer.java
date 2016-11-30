@@ -98,8 +98,6 @@ public class HumanPlayer
             default:
                 selectNextAction();
         }
-
-
     }
 
     /*

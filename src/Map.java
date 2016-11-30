@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * Reads and contains in memory the map of the game.
  *
@@ -15,6 +17,8 @@ public class Map
                         {'#','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','#' },
                         {'#','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','#' },
                         {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#' }   };
+
+    private static int[] playerPosition = new int[2];
 
     /*
     * @return : Gold required to exit the current map.
@@ -61,7 +65,7 @@ public class Map
     */
     protected int[] getPlayersPosition()
     {
-        return null;
+        return playerPosition;
     }
 
     /*
@@ -75,7 +79,7 @@ public class Map
     }
 
     /*
-    * Retrieves a tile on the map. If the location requested is outside bounds of the map, it retuns 'X' wall.
+    * Retrieves a tile on the map. If the location requested is outside bounds of the map, it returns 'X' wall.
     * @param coordinates: Coordinates of the tile as a 2D array.
     * @return : What the tile at the location requested contains.
     */
@@ -92,5 +96,27 @@ public class Map
     protected void updatePlayerPosition(int[] location)
     {
 
+    }
+
+    /*
+    * Generates a new starting location of the player.
+    *
+    */
+    protected void newGamePlayerPosition()
+    {
+        Map mapClass = new Map();
+        Random random = new Random();
+        int height = mapClass.getMapHeight();
+        int width = mapClass.getMapWidth();
+
+        int randomHeight = random.nextInt(height - 2) + 1;
+        int randomWidth = random.nextInt(width - 2) + 1;
+
+        if (map[randomWidth][randomHeight] == '#' || map[randomWidth][randomHeight] == 'G' || map[randomWidth][randomHeight] == 'B') newGamePlayerPosition();
+        else
+        {
+            playerPosition[0] = randomHeight;
+            playerPosition[1] = randomWidth;
+        }
     }
 }

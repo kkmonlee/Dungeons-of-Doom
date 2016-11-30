@@ -27,7 +27,7 @@ public class GameLogic
 
     /*
     *
-    * @return : Returns back gold player requires to exit the Dungeon
+    * @return : Returns back amount of gold player requires to exit the Dungeon
     */
     protected String hello()
     {
@@ -47,18 +47,28 @@ public class GameLogic
     }
 
     /* Converts the map from a 2D char array to a single string.
+    * Should only return a 5x5 grid. With the player in the middle..
     *
     * @return : A string representation of the game map.
     */
     protected String look(char[][] map)
     {
-        String wholeMap = "";
-        for (int i = 0; i < map.length; i++)
+        Map mapClass = new Map();
+        int[] playerPosition = mapClass.getPlayersPosition();
+        String viewPlayer = "";
+
+        for (int i = playerPosition[0] - 2; i <= playerPosition[0] + 2; i++)
         {
-            for (int j = 0; j < map[0].length; j++) wholeMap += map[i][j] + " ";
-            wholeMap += "\n";
+            for (int j = playerPosition[1] - 2; j <= playerPosition[1] + 2; j++)
+            {
+                if (playerPosition[0] == i && playerPosition[1] == j) viewPlayer += "P" + " ";
+                else if (i < 0) viewPlayer += "#" + " ";
+                else if (j < 0) viewPlayer += "#" + " ";
+                else viewPlayer += map[i][j] + " ";
+            }
+            viewPlayer += "\n";
         }
-        return wholeMap;
+        return viewPlayer;
     }
 
     /*
