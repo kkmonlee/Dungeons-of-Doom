@@ -1,3 +1,5 @@
+import javafx.print.PageLayout;
+
 /**
  * Contains the main logic part of the game, as it processes.
  *
@@ -43,6 +45,14 @@ public class GameLogic
     */
     protected String move(char  direction)
     {
+        Map mapClass = new Map();
+        int[] playerPosition = mapClass.getPlayersPosition();
+        System.out.println(playerPosition[0] + " " + playerPosition[1]);
+
+        switch (direction)
+        {
+            //
+        }
         return null;
     }
 
@@ -55,16 +65,18 @@ public class GameLogic
     {
         Map mapClass = new Map();
         int[] playerPosition = mapClass.getPlayersPosition();
+
+        System.out.println("pp0: " + playerPosition[0] + " pp1: " + playerPosition[1]);
         String viewPlayer = "";
 
-        for (int i = playerPosition[0] - 2; i <= playerPosition[0] + 2; i++)
+        for (int i = playerPosition[1] - 2; i <= playerPosition[1] + 2; i++)
         {
-            for (int j = playerPosition[1] - 2; j <= playerPosition[1] + 2; j++)
+            for (int j = playerPosition[0] - 2; j <= playerPosition[0] + 2; j++)
             {
-                if (playerPosition[0] == i && playerPosition[1] == j) viewPlayer += "P" + " ";
-                else if (i < 0) viewPlayer += "#" + " ";
-                else if (j < 0) viewPlayer += "#" + " ";
-                else viewPlayer += map[i][j] + " ";
+                if (playerPosition[1] == i && playerPosition[0] == j) viewPlayer += "P" + " ";
+                else if (i < 0 || i > mapClass.getMapWidth() - 1) viewPlayer += "#" + " ";
+                else if (j < 0 || j > mapClass.getMapHeight() - 1) viewPlayer += "#" + " ";
+                else viewPlayer += map[j][i] + " ";
             }
             viewPlayer += "\n";
         }

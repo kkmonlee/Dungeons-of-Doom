@@ -19,13 +19,23 @@ public class Map
                         {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#' }   };
 
     private static int[] playerPosition = new int[2];
+    private static int goldRequired = 0;
 
     /*
     * @return : Gold required to exit the current map.
     */
     protected int getGoldRequired()
     {
-        return 20;
+        return goldRequired;
+    }
+
+    /*
+    * Initialises the goldRequired variable
+    */
+    protected void setGoldRequired()
+    {
+        Random random = new Random();
+        goldRequired = random.nextInt(20) + 1;
     }
 
     /*
@@ -80,12 +90,12 @@ public class Map
 
     /*
     * Retrieves a tile on the map. If the location requested is outside bounds of the map, it returns 'X' wall.
-    * @param coordinates: Coordinates of the tile as a 2D array.
+    * @param coordinates: Coordinates of the tile as an array.
     * @return : What the tile at the location requested contains.
     */
     protected char getTile(int[] coordinates)
     {
-        return 'a';
+        return map[coordinates[1]][coordinates[0]];
     }
 
     /*
@@ -109,10 +119,10 @@ public class Map
         int height = mapClass.getMapHeight();
         int width = mapClass.getMapWidth();
 
-        int randomHeight = random.nextInt(height - 2) + 1;
-        int randomWidth = random.nextInt(width - 2) + 1;
+        int randomHeight = random.nextInt(height - 1) + 1;
+        int randomWidth = random.nextInt(width - 1) + 1;
 
-        if (map[randomWidth][randomHeight] == '#' || map[randomWidth][randomHeight] == 'G' || map[randomWidth][randomHeight] == 'B') newGamePlayerPosition();
+        if (map[randomHeight][randomWidth] == '#' || map[randomHeight][randomWidth] == 'G' || map[randomHeight][randomWidth] == 'B') newGamePlayerPosition();
         else
         {
             playerPosition[0] = randomHeight;

@@ -108,6 +108,10 @@ public class HumanPlayer
         System.out.println("Welcome to the game: Dungeons of Doom!");
         HumanPlayer humanPlayer = new HumanPlayer();
         GameLogic gameLogic = new GameLogic();
+        Map mapClass = new Map();
+
+        mapClass.newGamePlayerPosition();
+        mapClass.setGoldRequired();
 
         while (gameLogic.gameRunning())
         {
