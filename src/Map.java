@@ -1,3 +1,5 @@
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -20,6 +22,7 @@ public class Map
 
     private static int[] playerPosition = new int[2];
     private static int goldRequired = 0;
+    private static String mapName;
 
     /*
     * @return : Gold required to exit the current map.
@@ -27,15 +30,6 @@ public class Map
     protected int getGoldRequired()
     {
         return goldRequired;
-    }
-
-    /*
-    * Initialises the goldRequired variable
-    */
-    protected void setGoldRequired()
-    {
-        Random random = new Random();
-        goldRequired = random.nextInt(20) + 1;
     }
 
     /*
@@ -67,7 +61,7 @@ public class Map
     */
     protected String getMapName()
     {
-        return null;
+        return mapName;
     }
 
     /*
@@ -83,8 +77,30 @@ public class Map
     *
     * @param : Name of the map's file.
     */
-    protected void readMap(String fileName)
+    protected void readMap(String fileName) throws FileNotFoundException
     {
+        File theMap = new File(fileName);
+        FileReader fileIn = new FileReader(theMap);
+        BufferedReader input = new BufferedReader(fileIn);
+        ArrayList<String> tempMap = new ArrayList<>();
+
+        try
+        {
+            String line = input.readLine();
+
+            while (line != null)
+            {
+                tempMap.add(line);
+                line = input.readLine();
+            }
+            mapName = tempMap.get(0).substring(5, tempMap.get(0).length());
+            goldRequired = Integer.parseInt(tempMap.get(1).substring(4, tempMap.get(1).length()));
+
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
 
     }
 

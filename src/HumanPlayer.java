@@ -105,19 +105,21 @@ public class HumanPlayer
     */
     public static void main(String[] args) throws IOException
     {
-        System.out.println("Welcome to the game: Dungeons of Doom!");
         HumanPlayer humanPlayer = new HumanPlayer();
         GameLogic gameLogic = new GameLogic();
         Map mapClass = new Map();
 
         mapClass.newGamePlayerPosition();
-        mapClass.setGoldRequired();
+        mapClass.readMap("examplemap.txt");
+
+        System.out.println("Welcome to Dungeons of Doom.\nThe map name is: " + mapClass.getMapName() + ".");
 
         while (gameLogic.gameRunning())
         {
             humanPlayer.selectNextAction();
         }
 
+        System.out.println("You are now quitting the game.");
         gameLogic.quitGame();
     }
 }
