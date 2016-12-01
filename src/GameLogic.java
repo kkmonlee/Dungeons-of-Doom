@@ -52,7 +52,7 @@ public class GameLogic
         switch (direction)
         {
             case 'n':
-                //if (Character.toString(mapClass.getTile({playerPosition[0] - 1, playerPosition[1]}).equals(".")) System.out.println("BANTER");
+                //if (Character.toString(mapClass.getTile([playerPosition[0] - 1, playerPosition[1]])) System.out.println("BANTER");
         }
         return null;
     }
@@ -67,14 +67,14 @@ public class GameLogic
         Map mapClass = new Map();
         int[] playerPosition = mapClass.getPlayersPosition();
 
-        System.out.println("pp0: " + playerPosition[0] + " pp1: " + playerPosition[1]);
+        System.out.println("x: " + playerPosition[0] + " y: " + playerPosition[1]);
         String viewPlayer = "";
 
-        for (int i = playerPosition[1] - 2; i <= playerPosition[1] + 2; i++)
+        for (int i = playerPosition[0] - 2; i <= playerPosition[0] + 2; i++) //x
         {
-            for (int j = playerPosition[0] - 2; j <= playerPosition[0] + 2; j++)
+            for (int j = playerPosition[1] - 2; j <= playerPosition[1] + 2; j++) //y
             {
-                if (playerPosition[1] == i && playerPosition[0] == j) viewPlayer += "P" + " ";
+                if (playerPosition[0] == i && playerPosition[1] == j) viewPlayer += "P" + " ";
                 else if (i < 0 || i > mapClass.getMapWidth() - 1) viewPlayer += "#" + " ";
                 else if (j < 0 || j > mapClass.getMapHeight() - 1) viewPlayer += "#" + " ";
                 else viewPlayer += map[j][i] + " ";

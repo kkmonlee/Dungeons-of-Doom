@@ -61,7 +61,7 @@ public class HumanPlayer
     {
         HumanPlayer humanPlayer = new HumanPlayer();
         GameLogic gameLogic = new GameLogic();
-        Map map = new Map();
+        Map mapClass = new Map();
 
         System.out.println("Please input your next move: ");
         String response = humanPlayer.processCommand(humanPlayer.getInputFromConsole());
@@ -88,7 +88,7 @@ public class HumanPlayer
                 gameLogic.pickup();
                 break;
             case "l":
-                System.out.println(gameLogic.look(map.getMap()));
+                System.out.println(gameLogic.look(mapClass.getMap()));
                 break;
             case "q":
                 gameLogic.gameFlick();
@@ -109,8 +109,10 @@ public class HumanPlayer
         GameLogic gameLogic = new GameLogic();
         Map mapClass = new Map();
 
-        mapClass.newGamePlayerPosition();
         mapClass.readMap("examplemap.txt");
+        mapClass.newGamePlayerPosition();
+
+        System.out.println(mapClass.getTile(mapClass.getPlayersPosition()));
 
         System.out.println("Welcome to Dungeons of Doom.\nThe map name is: " + mapClass.getMapName() + ".");
 
@@ -121,5 +123,7 @@ public class HumanPlayer
 
         System.out.println("You are now quitting the game.");
         gameLogic.quitGame();
+
+
     }
 }

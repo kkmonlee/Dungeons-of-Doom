@@ -10,16 +10,7 @@ import java.util.Random;
 
 public class Map
 {
-    char[][] map =  {   {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#' },
-                        {'#','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','#' },
-                        {'#','.','.','.','.','.','.','G','.','.','.','.','.','.','.','.','E','.','#' },
-                        {'#','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','#' },
-                        {'#','.','.','E','.','.','.','.','.','.','.','.','.','.','.','.','.','.','#' },
-                        {'#','.','.','.','.','.','.','.','.','.','.','G','.','.','.','.','.','.','#' },
-                        {'#','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','#' },
-                        {'#','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','#' },
-                        {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#' }   };
-
+    static ArrayList<ArrayList<Character>> map2 = new ArrayList<>();
     private static int[] playerPosition = new int[2];
     private static int goldRequired = 0;
     private static String mapName;
@@ -37,7 +28,18 @@ public class Map
     */
     protected char[][] getMap()
     {
-        return map;
+        Map mapClass = new Map();
+
+        char[][] mapArray = new char[mapClass.getMapHeight()][mapClass.getMapWidth()];
+
+        for (int i = 0; i < mapClass.getMapHeight(); i++)
+        {
+            for (int j = 0; j < mapClass.getMapWidth(); j++)
+            {
+                mapArray[i][j] = map2.get(i).get(j);
+            }
+        }
+        return mapArray;
     }
 
     /*
@@ -45,7 +47,7 @@ public class Map
     */
     protected int getMapHeight()
     {
-        return map.length;
+        return map2.size();
     }
 
     /*
@@ -53,7 +55,7 @@ public class Map
     */
     protected int getMapWidth()
     {
-        return map[0].length;
+        return map2.get(0).size();
     }
 
     /*
@@ -96,6 +98,21 @@ public class Map
             mapName = tempMap.get(0).substring(5, tempMap.get(0).length());
             goldRequired = Integer.parseInt(tempMap.get(1).substring(4, tempMap.get(1).length()));
 
+            for (int i = 2; i < tempMap.size(); i++)
+            {
+                String row = tempMap.get(i);
+                map2.add(new ArrayList<Character>());
+                char[] tempArray = row.toCharArray();
+
+                for (int j = 0; j < row.length(); j++)
+                {
+                    map2.get(i - 2).add(new Character(tempArray[j]));
+                }
+
+
+            }
+
+//            System.out.println(map2.get(2).get(7));
         }
         catch (IOException e)
         {
@@ -111,7 +128,7 @@ public class Map
     */
     protected char getTile(int[] coordinates)
     {
-        return map[coordinates[1]][coordinates[0]];
+        return map2.get(coordinates[1]).get(coordinates[0]);
     }
 
     /*
@@ -132,17 +149,18 @@ public class Map
     {
         Map mapClass = new Map();
         Random random = new Random();
+
         int height = mapClass.getMapHeight();
         int width = mapClass.getMapWidth();
 
         int randomHeight = random.nextInt(height - 1) + 1;
         int randomWidth = random.nextInt(width - 1) + 1;
 
-        if (map[randomHeight][randomWidth] == '#' || map[randomHeight][randomWidth] == 'G' || map[randomHeight][randomWidth] == 'B') newGamePlayerPosition();
+        if (map2.get(randomHeight).get(randomWidth) == '#' || map2.get(randomHeight).get(randomWidth) == 'G' || map2.get(randomHeight).get(randomWidth) == 'B') newGamePlayerPosition();
         else
         {
-            playerPosition[0] = randomHeight;
-            playerPosition[1] = randomWidth;
+            playerPosition[0] = randomWidth;
+            playerPosition[1] = randomHeight;
         }
     }
 }
