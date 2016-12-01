@@ -112,7 +112,7 @@ public class HumanPlayer
         mapClass.readMap("examplemap.txt");
         mapClass.newGamePlayerPosition();
 
-        System.out.println(mapClass.getTile(mapClass.getPlayersPosition()));
+        System.out.println("x: " + mapClass.getPlayersPosition()[0] + " y: " + mapClass.getPlayersPosition()[1]);
 
         System.out.println("Welcome to Dungeons of Doom.\nThe map name is: " + mapClass.getMapName() + ".");
 

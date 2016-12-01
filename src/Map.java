@@ -39,6 +39,7 @@ public class Map
                 mapArray[i][j] = map2.get(i).get(j);
             }
         }
+
         return mapArray;
     }
 
@@ -108,11 +109,10 @@ public class Map
                 {
                     map2.get(i - 2).add(new Character(tempArray[j]));
                 }
-
-
             }
 
-//            System.out.println(map2.get(2).get(7));
+
+            //System.out.println(map2);
         }
         catch (IOException e)
         {
@@ -153,8 +153,8 @@ public class Map
         int height = mapClass.getMapHeight();
         int width = mapClass.getMapWidth();
 
-        int randomHeight = random.nextInt(height - 1) + 1;
-        int randomWidth = random.nextInt(width - 1) + 1;
+        int randomHeight = random.nextInt(height + 1);
+        int randomWidth = random.nextInt(width + 1);
 
         if (map2.get(randomHeight).get(randomWidth) == '#' || map2.get(randomHeight).get(randomWidth) == 'G' || map2.get(randomHeight).get(randomWidth) == 'B') newGamePlayerPosition();
         else

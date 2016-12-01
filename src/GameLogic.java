@@ -1,5 +1,3 @@
-import javafx.print.PageLayout;
-
 /**
  * Contains the main logic part of the game, as it processes.
  *
@@ -65,22 +63,22 @@ public class GameLogic
     protected String look(char[][] map)
     {
         Map mapClass = new Map();
-        int[] playerPosition = mapClass.getPlayersPosition();
 
-        System.out.println("x: " + playerPosition[0] + " y: " + playerPosition[1]);
         String viewPlayer = "";
 
-        for (int i = playerPosition[0] - 2; i <= playerPosition[0] + 2; i++) //x
+
+        for (int i = mapClass.getPlayersPosition()[1] - 2; i <= mapClass.getPlayersPosition()[1] + 2; i++)
         {
-            for (int j = playerPosition[1] - 2; j <= playerPosition[1] + 2; j++) //y
+            for (int j = mapClass.getPlayersPosition()[0] - 2; j <= mapClass.getPlayersPosition()[0] + 2; j++)
             {
-                if (playerPosition[0] == i && playerPosition[1] == j) viewPlayer += "P" + " ";
-                else if (i < 0 || i > mapClass.getMapWidth() - 1) viewPlayer += "#" + " ";
-                else if (j < 0 || j > mapClass.getMapHeight() - 1) viewPlayer += "#" + " ";
-                else viewPlayer += map[j][i] + " ";
+                if (mapClass.getPlayersPosition()[0] == j && mapClass.getPlayersPosition()[1] == i) viewPlayer += "P ";
+                else if (i < 0 || i > mapClass.getMapHeight() - 1) viewPlayer += "# ";
+                else if (j < 0 || j > mapClass.getMapWidth() - 1) viewPlayer += "# ";
+                else viewPlayer += map[i][j] + " ";
             }
             viewPlayer += "\n";
         }
+
         return viewPlayer;
     }
 
