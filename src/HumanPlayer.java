@@ -2,15 +2,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/*
+/**
  * Runs the game with a human player and contains code needed to read inputs.
  *
- * Created by lb809 on 27/11/2016.
+ * @author : lb809 on 27/11/2016.
  */
 
 public class HumanPlayer
 {
-    /*
+    /**
     * Reads player's input from the console.
     * <p>
     * @return : A string containing the input the player entered.
@@ -21,7 +21,7 @@ public class HumanPlayer
         return consoleInput.readLine();
     }
 
-    /*
+    /**
     * Processes the command. It should return a reply in the form of a String, as the protocol dictates.
     * Otherwise it should return the string "Invalid"
     *
@@ -53,7 +53,7 @@ public class HumanPlayer
         }
     }
 
-    /*
+    /**
     * Uses getInputFromConsole() to read from console, processCommand() to process the reading,
     * and then displays in console the final answer.
     */
@@ -100,7 +100,7 @@ public class HumanPlayer
         }
     }
 
-    /*
+    /**
     * 1st Main function
     */
     public static void main(String[] args) throws IOException

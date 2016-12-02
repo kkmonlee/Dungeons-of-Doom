@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * Reads and contains in memory the map of the game.
  *
- * Created by lb809 on 27/11/2016.
+ * @author : lb809 on 27/11/2016.
  */
 
 public class Map
@@ -15,7 +15,7 @@ public class Map
     private static int goldRequired = 0;
     private static String mapName;
 
-    /*
+    /**
     * @return : Gold required to exit the current map.
     */
     protected int getGoldRequired()
@@ -23,7 +23,7 @@ public class Map
         return goldRequired;
     }
 
-    /*
+    /**
     * @return : The map stored in memory.
     */
     protected char[][] getMap()
@@ -43,7 +43,7 @@ public class Map
         return mapArray;
     }
 
-    /*
+    /**
     * @return : The height of the current map.
     */
     protected int getMapHeight()
@@ -51,7 +51,7 @@ public class Map
         return map2.size();
     }
 
-    /*
+    /**
     * @return : The width of the current map.
     */
     protected int getMapWidth()
@@ -59,7 +59,7 @@ public class Map
         return map2.get(0).size();
     }
 
-    /*
+    /**
     * @return : The name of the current map.
     */
     protected String getMapName()
@@ -67,7 +67,7 @@ public class Map
         return mapName;
     }
 
-    /*
+    /**
     * @return : The position of the player.
     */
     protected int[] getPlayersPosition()
@@ -75,7 +75,7 @@ public class Map
         return playerPosition;
     }
 
-    /*
+    /**
     * Reads map from file.
     *
     * @param : Name of the map's file.
@@ -121,7 +121,7 @@ public class Map
 
     }
 
-    /*
+    /**
     * Retrieves a tile on the map. If the location requested is outside bounds of the map, it returns 'X' wall.
     * @param coordinates: Coordinates of the tile as an array.
     * @return : What the tile at the location requested contains.
@@ -131,7 +131,7 @@ public class Map
         return map2.get(coordinates[1]).get(coordinates[0]);
     }
 
-    /*
+    /**
     * Updates the stored in memory location of the player.
     *
     * @param location : New location of the player.
@@ -141,7 +141,7 @@ public class Map
 
     }
 
-    /*
+    /**
     * Generates a new starting location of the player.
     *
     */

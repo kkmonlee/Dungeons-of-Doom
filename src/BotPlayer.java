@@ -1,12 +1,12 @@
 /**
  * Starts the game with a Bot Player. Contains code for the bot's decision making.
  *
- * Created by lb809 on 27/11/2016.
+ * @author : lb809 on 27/11/2016.
  */
 
 public class BotPlayer
 {
-    /*
+    /**
     * Processes the command. It should return a reply in form of a String, as the protocol dictates.
     * Otherwise it should return the string "Invalid".
     *
@@ -18,7 +18,7 @@ public class BotPlayer
         return null;
     }
 
-    /*
+    /**
     * Selects the next action the bot will perform. Outputs in the console the final result.
     */
     public void selectNextAction()
@@ -26,7 +26,7 @@ public class BotPlayer
 
     }
 
-    /*
+    /**
     * @return : The direction the agent will move.
     */
     protected char selectMoveDirection(char[][] map)
@@ -34,7 +34,7 @@ public class BotPlayer
         return 'a';
     }
 
-    /*
+    /**
     * 2nd Main function
     */
     public static void main(String[] args)
