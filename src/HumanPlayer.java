@@ -118,6 +118,11 @@ public class HumanPlayer
 
         while (gameLogic.gameRunning())
         {
+            if (mapClass.doWeHaveEnoughGold() && Character.toString(mapClass.getTile(mapClass.getPlayersPosition())).equals("E"))
+            {
+                System.out.println("You have now collected enough gold and you are standing on an exit square. Well done!");
+                break;
+            }
             humanPlayer.selectNextAction();
         }
 

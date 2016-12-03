@@ -24,8 +24,15 @@ public class Map
     private static int myMapHeight = 0;
     private static int myMapWidth = 0;
 
+    //fields to do with picking up gold.
     private static boolean isOnGold = false;
     private static int totalGold = 0;
+
+    protected boolean doWeHaveEnoughGold()
+    {
+        if (totalGold == goldRequired) return true;
+        else return false;
+    }
 
     /**
      * Increments the total gold of the player, after picking up some gold.
