@@ -27,8 +27,10 @@ public class BotPlayer
     }
 
     /**
-    * @return : The direction the agent will move.
-    */
+     * // explain what this does
+     * @param map explain what map is
+     * @return explain what this returns
+     */
     protected char selectMoveDirection(char[][] map)
     {
         return 'a';
