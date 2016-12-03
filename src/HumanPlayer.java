@@ -123,6 +123,10 @@ public class HumanPlayer
                 System.out.println("You have now collected enough gold and you are standing on an exit square. Well done!");
                 break;
             }
+            else if (!mapClass.doWeHaveEnoughGold() && Character.toString(mapClass.getTile(mapClass.getPlayersPosition())).equals("E"))
+            {
+                System.out.println("You have not yet collected enough gold to leave the game.");
+            }
             humanPlayer.selectNextAction();
         }
 

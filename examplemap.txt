@@ -1,5 +1,5 @@
 name Very Small Labyrinth of Dooom
-win 2
+win 3
 ###################
 #.................#
 #......G........E.#
