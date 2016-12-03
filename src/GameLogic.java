@@ -92,6 +92,7 @@ public class GameLogic
         else if (Character.toString(tile).equals("G"))
         {
             mapClass.updatePlayerPosition(tempPos);
+            mapClass.changeStatusGold();
             return "You are moving onto a gold tile";
         }
         else if (Character.toString(tile).equals("B"))
@@ -144,7 +145,20 @@ public class GameLogic
     */
     protected String pickup()
     {
-        return null;
+        Map mapClass = new Map();
+        char tile = mapClass.getTile(mapClass.getPlayersPosition());
+        if (mapClass.getStatusGold())
+        {
+            mapClass.changeStateOfTile();
+            mapClass.resetStatusGold();
+            mapClass.incrementGold();
+            return "You have picked up a gold coin!";
+        }
+        else
+        {
+            return "No gold in this location, sorry!";
+        }
+
     }
 
     /**

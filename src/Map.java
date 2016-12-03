@@ -24,6 +24,52 @@ public class Map
     private static int myMapHeight = 0;
     private static int myMapWidth = 0;
 
+    private static boolean isOnGold = false;
+    private static int totalGold = 0;
+
+    /**
+     * Increments the total gold of the player, after picking up some gold.
+     */
+    protected void incrementGold()
+    {
+        totalGold++;
+    }
+
+    /**
+     * Changes the state of a gold coin to a '.' after getting picked up.
+     */
+    protected void changeStateOfTile()
+    {
+        Map mapClass = new Map();
+        myMap[mapClass.getPlayersPosition()[0]][mapClass.getPlayersPosition()[1]] = '.';
+    }
+
+    /**
+     * Returns the value of the isOnGold boolean.
+     *
+     * @return the value of isOnGold.
+     */
+    protected boolean getStatusGold()
+    {
+        return isOnGold;
+    }
+
+    /**
+     * Resets to default isOnGold value
+     */
+    protected void resetStatusGold()
+    {
+        isOnGold = false;
+    }
+
+    /**
+     * Method which changes the boolean value of isOnGold
+     */
+    protected void changeStatusGold()
+    {
+        isOnGold = true;
+    }
+
     /**
      * Initialises the 2D char array for the map.
      */

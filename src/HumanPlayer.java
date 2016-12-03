@@ -85,7 +85,7 @@ public class HumanPlayer
                 System.out.println(gameLogic.move('w'));
                 break;
             case "p":
-                gameLogic.pickup();
+                System.out.println(gameLogic.pickup());
                 break;
             case "l":
                 System.out.println(gameLogic.look(mapClass.getMap(), mapClass.getPlayersPosition()));
