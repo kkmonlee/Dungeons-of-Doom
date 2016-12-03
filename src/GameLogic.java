@@ -54,107 +54,57 @@ public class GameLogic
             case 'n':
                 int[] tempPosN = {playerPosition[0], playerPosition[1] - 1};
                 char tileAbove = mapClass.getTile(tempPosN);
-                if (Character.toString(tileAbove).equals("#")) return "You are moving into a wall.";
-                else if (Character.toString(tileAbove).equals("E"))
-                {
-                    mapClass.updatePlayerPosition(tempPosN);
-                    return "You are moving onto an exit tile";
-                }
-                else if (Character.toString(tileAbove).equals("G"))
-                {
-                    mapClass.updatePlayerPosition(tempPosN);
-                    return "You are moving onto a gold tile";
-                }
-                else if (Character.toString(tileAbove).equals("B"))
-                {
-                    System.out.println("You moved into the bot. Game over");
-                    gameLogic.quitGame();
-                    return null;
-                }
-                else
-                {
-                    mapClass.updatePlayerPosition(tempPosN);
-                    return "You moved successfully";
-                }
+                return gameLogic.checkMove(tempPosN, tileAbove);
             case 's':
-            int[] tempPosS = {playerPosition[0], playerPosition[1] + 1};
-            char tileBelow = mapClass.getTile(tempPosS);
-            if (Character.toString(tileBelow).equals("#")) return "You are moving into a wall.";
-            else if (Character.toString(tileBelow).equals("E"))
-            {
-                mapClass.updatePlayerPosition(tempPosS);
-                return "You are moving onto an exit tile";
-            }
-            else if (Character.toString(tileBelow).equals("G"))
-            {
-                mapClass.updatePlayerPosition(tempPosS);
-                return "You are moving onto a gold tile";
-            }
-            else if (Character.toString(tileBelow).equals("B"))
-            {
-                System.out.println("You moved into the bot. Game over");
-                gameLogic.quitGame();
-                return null;
-            }
-            else
-            {
-                mapClass.updatePlayerPosition(tempPosS);
-                return "You moved successfully";
-            }
+                int[] tempPosS = {playerPosition[0], playerPosition[1] + 1};
+                char tileBelow = mapClass.getTile(tempPosS);
+                return gameLogic.checkMove(tempPosS, tileBelow);
             case 'e':
-            int[] tempPosE = {playerPosition[0] + 1, playerPosition[1]};
-            char tileRight = mapClass.getTile(tempPosE);
-            if (Character.toString(tileRight).equals("#")) return "You are moving into a wall.";
-            else if (Character.toString(tileRight).equals("E"))
-            {
-                mapClass.updatePlayerPosition(tempPosE);
-                return "You are moving onto an exit tile";
-            }
-            else if (Character.toString(tileRight).equals("G"))
-            {
-                mapClass.updatePlayerPosition(tempPosE);
-                return "You are moving onto a gold tile";
-            }
-            else if (Character.toString(tileRight).equals("B"))
-            {
-                System.out.println("You moved into the bot. Game over");
-                gameLogic.quitGame();
-                return null;
-            }
-            else
-            {
-                mapClass.updatePlayerPosition(tempPosE);
-                return "You moved successfully";
-            }
+                int[] tempPosE = {playerPosition[0] + 1, playerPosition[1]};
+                char tileRight = mapClass.getTile(tempPosE);
+                return gameLogic.checkMove(tempPosE, tileRight);
             case 'w':
                 int[] tempPosW = {playerPosition[0] - 1, playerPosition[1]};
                 char tileLeft = mapClass.getTile(tempPosW);
-                if (Character.toString(tileLeft).equals("#")) return "You are moving into a wall.";
-                else if (Character.toString(tileLeft).equals("E"))
-                {
-                    mapClass.updatePlayerPosition(tempPosW);
-                    return "You are moving onto an exit tile";
-                }
-                else if (Character.toString(tileLeft).equals("G"))
-                {
-                    mapClass.updatePlayerPosition(tempPosW);
-                    return "You are moving onto a gold tile";
-                }
-                else if (Character.toString(tileLeft).equals("B"))
-                {
-                    System.out.println("You moved into the bot. Game over");
-                    gameLogic.quitGame();
-                    return null;
-                }
-                else
-                {
-                    mapClass.updatePlayerPosition(tempPosW);
-                    return "You moved successfully";
-                }
-
-
+                return gameLogic.checkMove(tempPosW, tileLeft);
         }
         return null;
+    }
+
+    /**
+     * Checks the corresponding tile for a valid move
+     *
+     * @param tempPos temporary position of player according to the input
+     * @param tile tile at that temporary position
+     * @return returns the result of evaluating the parameters
+     */
+    protected String checkMove(int[] tempPos, char tile)
+    {
+        Map mapClass = new Map();
+        GameLogic gameLogic = new GameLogic();
+
+        if (Character.toString(tile).equals("#")) return "You are moving into a wall.";
+        else if (Character.toString(tile).equals("E"))
+        {
+            mapClass.updatePlayerPosition(tempPos);
+            return "You are moving onto an exit tile";
+        }
+        else if (Character.toString(tile).equals("G"))
+        {
+            mapClass.updatePlayerPosition(tempPos);
+            return "You are moving onto a gold tile";
+        }
+        else if (Character.toString(tile).equals("B"))
+        {
+            System.out.println("You moved into the bot. Game over");
+            gameLogic.quitGame();
+            return null;
+        }
+        else
+        {
+            mapClass.updatePlayerPosition(tempPos);
+            return "You moved successfully";
+        }
     }
 
     /**
