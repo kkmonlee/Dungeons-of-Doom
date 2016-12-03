@@ -28,6 +28,12 @@ public class Map
     private static boolean isOnGold = false;
     private static int totalGold = 0;
 
+    /**
+     * Evaluates whether or not goldRequired is equal to totalGold.
+     * If so @return is true, else returns false.
+     *
+     * @return the boolean if two values are equal
+     */
     protected boolean doWeHaveEnoughGold()
     {
         if (totalGold == goldRequired) return true;
