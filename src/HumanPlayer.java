@@ -73,22 +73,22 @@ public class HumanPlayer
                 System.out.println(gameLogic.hello());
                 break;
             case "mn":
-                gameLogic.move('n');
+                System.out.println(gameLogic.move('n'));
                 break;
             case "ms":
-                gameLogic.move('s');
+                System.out.println(gameLogic.move('s'));
                 break;
             case "me":
-                gameLogic.move('e');
+                System.out.println(gameLogic.move('e'));
                 break;
             case "mw":
-                gameLogic.move('w');
+                System.out.println(gameLogic.move('w'));
                 break;
             case "p":
                 gameLogic.pickup();
                 break;
             case "l":
-                System.out.println(gameLogic.look(mapClass.getMap()));
+                System.out.println(gameLogic.look(mapClass.getMap(), mapClass.getPlayersPosition()));
                 break;
             case "q":
                 gameLogic.gameFlick();

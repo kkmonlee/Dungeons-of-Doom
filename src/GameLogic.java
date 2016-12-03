@@ -44,12 +44,113 @@ public class GameLogic
     protected String move(char  direction)
     {
         Map mapClass = new Map();
+        GameLogic gameLogic = new GameLogic();
+
         int[] playerPosition = mapClass.getPlayersPosition();
         System.out.println(playerPosition[0] + " " + playerPosition[1]);
 
         switch (direction)
         {
             case 'n':
+                int[] tempPosN = {playerPosition[0], playerPosition[1] - 1};
+                char tileAbove = mapClass.getTile(tempPosN);
+                if (Character.toString(tileAbove).equals("#")) return "You are moving into a wall.";
+                else if (Character.toString(tileAbove).equals("E"))
+                {
+                    mapClass.updatePlayerPosition(tempPosN);
+                    return "You are moving onto an exit tile";
+                }
+                else if (Character.toString(tileAbove).equals("G"))
+                {
+                    mapClass.updatePlayerPosition(tempPosN);
+                    return "You are moving onto a gold tile";
+                }
+                else if (Character.toString(tileAbove).equals("B"))
+                {
+                    System.out.println("You moved into the bot. Game over");
+                    gameLogic.quitGame();
+                    return null;
+                }
+                else
+                {
+                    mapClass.updatePlayerPosition(tempPosN);
+                    return "You moved successfully";
+                }
+            case 's':
+            int[] tempPosS = {playerPosition[0], playerPosition[1] + 1};
+            char tileBelow = mapClass.getTile(tempPosS);
+            if (Character.toString(tileBelow).equals("#")) return "You are moving into a wall.";
+            else if (Character.toString(tileBelow).equals("E"))
+            {
+                mapClass.updatePlayerPosition(tempPosS);
+                return "You are moving onto an exit tile";
+            }
+            else if (Character.toString(tileBelow).equals("G"))
+            {
+                mapClass.updatePlayerPosition(tempPosS);
+                return "You are moving onto a gold tile";
+            }
+            else if (Character.toString(tileBelow).equals("B"))
+            {
+                System.out.println("You moved into the bot. Game over");
+                gameLogic.quitGame();
+                return null;
+            }
+            else
+            {
+                mapClass.updatePlayerPosition(tempPosS);
+                return "You moved successfully";
+            }
+            case 'e':
+            int[] tempPosE = {playerPosition[0] + 1, playerPosition[1]};
+            char tileRight = mapClass.getTile(tempPosE);
+            if (Character.toString(tileRight).equals("#")) return "You are moving into a wall.";
+            else if (Character.toString(tileRight).equals("E"))
+            {
+                mapClass.updatePlayerPosition(tempPosE);
+                return "You are moving onto an exit tile";
+            }
+            else if (Character.toString(tileRight).equals("G"))
+            {
+                mapClass.updatePlayerPosition(tempPosE);
+                return "You are moving onto a gold tile";
+            }
+            else if (Character.toString(tileRight).equals("B"))
+            {
+                System.out.println("You moved into the bot. Game over");
+                gameLogic.quitGame();
+                return null;
+            }
+            else
+            {
+                mapClass.updatePlayerPosition(tempPosE);
+                return "You moved successfully";
+            }
+            case 'w':
+                int[] tempPosW = {playerPosition[0] - 1, playerPosition[1]};
+                char tileLeft = mapClass.getTile(tempPosW);
+                if (Character.toString(tileLeft).equals("#")) return "You are moving into a wall.";
+                else if (Character.toString(tileLeft).equals("E"))
+                {
+                    mapClass.updatePlayerPosition(tempPosW);
+                    return "You are moving onto an exit tile";
+                }
+                else if (Character.toString(tileLeft).equals("G"))
+                {
+                    mapClass.updatePlayerPosition(tempPosW);
+                    return "You are moving onto a gold tile";
+                }
+                else if (Character.toString(tileLeft).equals("B"))
+                {
+                    System.out.println("You moved into the bot. Game over");
+                    gameLogic.quitGame();
+                    return null;
+                }
+                else
+                {
+                    mapClass.updatePlayerPosition(tempPosW);
+                    return "You moved successfully";
+                }
 
 
         }
@@ -63,14 +164,14 @@ public class GameLogic
      * @param map : The map is the whole grid, in which the player can move.
      * @return : The map in the form of a string.
      */
-    protected String look(char[][] map)
+    protected String look(char[][] map, int[] playerPos)
     {
         Map mapClass = new Map();
 
         String viewPlayer = "";
 
-        int x = mapClass.getPlayersPosition()[0];
-        int y = mapClass.getPlayersPosition()[1];
+        int x = playerPos[0];
+        int y = playerPos[1];
 
         for (int i = y - 2; i <= y + 2; i++)
         {
