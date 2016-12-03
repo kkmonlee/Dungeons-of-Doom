@@ -54,14 +54,9 @@ public class HumanPlayer
     }
 
     /**
-    * Uses getInputFromConsole() to read from console, processCommand() to process the reading,
-    * and then displays in console the final answer.
-    */
-
-    /**
      * Uses getInputFromConsole() to read from console, processCommand() to process the reading,
      * and then displays in console the final answer.
-     * @throws IOException // explain when an IOException will be thrown and why
+     * @throws IOException - Exception thrown when "null" inputted.
      */
     protected void selectNextAction() throws IOException
     {
@@ -74,7 +69,6 @@ public class HumanPlayer
 
         switch (response)
         {
-
             case "h":
                 System.out.println(gameLogic.hello());
                 break;

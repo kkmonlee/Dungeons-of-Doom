@@ -7,8 +7,7 @@
 public class BotPlayer
 {
     /**
-    * Processes the command. It should return a reply in form of a String, as the protocol dictates.
-    * Otherwise it should return the string "Invalid".
+    * Command processing method for BotPlayer.
     *
     * @param command : Input entered by the user.
     * @return : Processed output or Invalid if the @param command is wrong.
@@ -26,8 +25,8 @@ public class BotPlayer
 
     }
 
-    /**
-     * // explain what this does
+     /**
+     * Selects a new move direction
      * @param map explain what map is
      * @return explain what this returns
      */

@@ -9,8 +9,8 @@ public class GameLogic
     private static boolean running = true;
 
     /**
-    * // explain what this does
-    * @return : if the game is running
+    * Returns the boolean to check whether the game is still running or not.
+    * @return : boolean, if the game is running or not.
     */
     protected boolean gameRunning()
     {
@@ -26,8 +26,8 @@ public class GameLogic
     }
 
     /**
-    * // explain what this does
-    * @return : Returns back amount of gold player requires to exit the Dungeon
+    * Prints to the console the amount of gold the player needs to exit the game.
+    * @return : goldRequired
     */
     protected String hello()
     {
@@ -59,8 +59,9 @@ public class GameLogic
     /**
      * Converts the map from a 2D char array to a single string.
      * Should only return a 5x5 grid. With the player in the middle..
-     * @param map explain what map is
-     * @return explain what this method returns
+     *
+     * @param map : The map is the whole grid, in which the player can move.
+     * @return : The map in the form of a string.
      */
     protected String look(char[][] map)
     {
@@ -96,7 +97,7 @@ public class GameLogic
     }
 
     /**
-    * Quits the game, shutting down the application
+    * Quits the game, shutting down the game
     */
     protected void quitGame()
     {

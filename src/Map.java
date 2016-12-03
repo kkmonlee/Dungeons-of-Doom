@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.jar.Pack200;
 
 /**
  * Reads and contains in memory the map of the game.
@@ -11,13 +10,17 @@ import java.util.jar.Pack200;
 
 public class Map
 {
+    //Player position coordinates in the form {x, y}
     private static int[] playerPosition = new int[2];
 
+    //fields to do with the game play.
     private static int goldRequired = 0;
     private static String mapName;
 
+    //Declaring the 2D mapArray
     private static char[][] myMap = null;
 
+    //Parameters of the mapArray
     private static int myMapHeight = 0;
     private static int myMapWidth = 0;
 
@@ -78,9 +81,9 @@ public class Map
     }
 
     /**
-     * Reads map from file
+     * Reads map from file and puts it in the 2D char array
      * @param fileName Name of the map's file
-     * @throws FileNotFoundException // explain when an IOException will be thrown and why
+     * @throws FileNotFoundException - Exception thrown when "null" inputted.
      */
     protected void readMap(String fileName) throws FileNotFoundException
     {
@@ -131,12 +134,12 @@ public class Map
 
     /**
     * Retrieves a tile on the map. If the location requested is outside bounds of the map, it returns 'X' wall.
-    * @param coordinates: Coordinates of the tile as an array.
+    * @param coordinates: Coordinates of the tile as an array {x, y} format.
     * @return : What the tile at the location requested contains.
     */
     protected char getTile(int[] coordinates)
     {
-        return 'a';
+        return myMap[coordinates[0]][coordinates[1]];
     }
 
     /**
@@ -146,7 +149,8 @@ public class Map
     */
     protected void updatePlayerPosition(int[] location)
     {
-
+        playerPosition[0] = location[0];
+        playerPosition[1] = location[1];
     }
 
     /**
