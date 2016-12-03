@@ -76,10 +76,10 @@ public class Map
     }
 
     /**
-    * Reads map from file.
-    *
-    * @param : Name of the map's file.
-    */
+     * Reads map from file
+     * @param fileName Name of the map's file
+     * @throws FileNotFoundException // explain when an IOException will be thrown and why
+     */
     protected void readMap(String fileName) throws FileNotFoundException
     {
         File theMap = new File(fileName);

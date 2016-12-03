@@ -9,7 +9,7 @@ public class GameLogic
     private static boolean running = true;
 
     /**
-    *
+    * // explain what this does
     * @return : if the game is running
     */
     protected boolean gameRunning()
@@ -26,7 +26,7 @@ public class GameLogic
     }
 
     /**
-    *
+    * // explain what this does
     * @return : Returns back amount of gold player requires to exit the Dungeon
     */
     protected String hello()
@@ -57,11 +57,11 @@ public class GameLogic
     }
 
     /**
-    * Converts the map from a 2D char array to a single string.
-    * Should only return a 5x5 grid. With the player in the middle..
-    *
-    * @return : A string representation of the game map.
-    */
+     * Converts the map from a 2D char array to a single string.
+     * Should only return a 5x5 grid. With the player in the middle..
+     * @param map explain what map is
+     * @return explain what this method returns
+     */
     protected String look(char[][] map)
     {
         Map mapClass = new Map();

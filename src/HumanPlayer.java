@@ -11,10 +11,10 @@ import java.io.InputStreamReader;
 public class HumanPlayer
 {
     /**
-    * Reads player's input from the console.
-    * <p>
-    * @return : A string containing the input the player entered.
-    */
+     * Reads player's input from the console.
+     * @return A string containing the input the player entered
+     * @throws IOException // explain when an IOException will be thrown and why
+     */
     protected String getInputFromConsole() throws IOException
     {
         BufferedReader consoleInput = new BufferedReader(new InputStreamReader(System.in));
@@ -57,6 +57,12 @@ public class HumanPlayer
     * Uses getInputFromConsole() to read from console, processCommand() to process the reading,
     * and then displays in console the final answer.
     */
+
+    /**
+     * Uses getInputFromConsole() to read from console, processCommand() to process the reading,
+     * and then displays in console the final answer.
+     * @throws IOException // explain when an IOException will be thrown and why
+     */
     protected void selectNextAction() throws IOException
     {
         HumanPlayer humanPlayer = new HumanPlayer();
