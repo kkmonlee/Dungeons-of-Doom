@@ -68,19 +68,20 @@ public class GameLogic
 
         String viewPlayer = "";
 
+        int x = mapClass.getPlayersPosition()[0];
+        int y = mapClass.getPlayersPosition()[1];
 
-        for (int i = mapClass.getPlayersPosition()[1] - 2; i <= mapClass.getPlayersPosition()[1] + 2; i++)
+        for (int i = y - 2; i <= y + 2; i++)
         {
-            for (int j = mapClass.getPlayersPosition()[0] - 2; j <= mapClass.getPlayersPosition()[0] + 2; j++)
+            for (int j = x - 2; j <= x + 2; j++)
             {
-                if (mapClass.getPlayersPosition()[0] == j && mapClass.getPlayersPosition()[1] == i) viewPlayer += "P ";
-                else if (i < 0 || i > mapClass.getMapHeight() - 1) viewPlayer += "# ";
-                else if (j < 0 || j > mapClass.getMapWidth() - 1) viewPlayer += "# ";
-                else viewPlayer += map[i][j] + " ";
+                if (x == j && y == i) viewPlayer += "P ";
+                else if (j < 0 || j >= mapClass.getMapWidth()) viewPlayer += "X ";
+                else if (i < 0 || i >= mapClass.getMapHeight()) viewPlayer += "X ";
+                else viewPlayer += map[j][i] + " ";
             }
             viewPlayer += "\n";
         }
-
         return viewPlayer;
     }
 

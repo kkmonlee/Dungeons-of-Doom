@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.jar.Pack200;
 
 /**
  * Reads and contains in memory the map of the game.
@@ -10,10 +11,23 @@ import java.util.Random;
 
 public class Map
 {
-    static ArrayList<ArrayList<Character>> map2 = new ArrayList<>();
     private static int[] playerPosition = new int[2];
+
     private static int goldRequired = 0;
     private static String mapName;
+
+    private static char[][] myMap = null;
+
+    private static int myMapHeight = 0;
+    private static int myMapWidth = 0;
+
+    /**
+     * Initialises the 2D char array for the map.
+     */
+    protected void initmyMap()
+    {
+        myMap = new char[myMapWidth][myMapHeight];
+    }
 
     /**
     * @return : Gold required to exit the current map.
@@ -28,19 +42,7 @@ public class Map
     */
     protected char[][] getMap()
     {
-        Map mapClass = new Map();
-
-        char[][] mapArray = new char[mapClass.getMapHeight()][mapClass.getMapWidth()];
-
-        for (int i = 0; i < mapClass.getMapHeight(); i++)
-        {
-            for (int j = 0; j < mapClass.getMapWidth(); j++)
-            {
-                mapArray[i][j] = map2.get(i).get(j);
-            }
-        }
-
-        return mapArray;
+        return myMap;
     }
 
     /**
@@ -48,7 +50,7 @@ public class Map
     */
     protected int getMapHeight()
     {
-        return map2.size();
+        return myMapHeight;
     }
 
     /**
@@ -56,7 +58,7 @@ public class Map
     */
     protected int getMapWidth()
     {
-        return map2.get(0).size();
+        return myMapWidth;
     }
 
     /**
@@ -85,7 +87,9 @@ public class Map
         File theMap = new File(fileName);
         FileReader fileIn = new FileReader(theMap);
         BufferedReader input = new BufferedReader(fileIn);
+
         ArrayList<String> tempMap = new ArrayList<>();
+        Map mapClass = new Map();
 
         try
         {
@@ -96,23 +100,27 @@ public class Map
                 tempMap.add(line);
                 line = input.readLine();
             }
+
             mapName = tempMap.get(0).substring(5, tempMap.get(0).length());
-            goldRequired = Integer.parseInt(tempMap.get(1).substring(4, tempMap.get(1).length()));
+            tempMap.remove(0);
 
-            for (int i = 2; i < tempMap.size(); i++)
+            goldRequired = Integer.valueOf(tempMap.get(0).substring(4, tempMap.get(0).length()));
+            tempMap.remove(0);
+
+            myMapHeight = tempMap.size();
+            myMapWidth = tempMap.get(0).length();
+
+            mapClass.initmyMap();
+
+            for (int i = 0; i < myMapHeight; i++)
             {
-                String row = tempMap.get(i);
-                map2.add(new ArrayList<Character>());
-                char[] tempArray = row.toCharArray();
+                String[] singleRow = tempMap.get(i).split("");
 
-                for (int j = 0; j < row.length(); j++)
+                for (int j = 0; j < singleRow.length; j++)
                 {
-                    map2.get(i - 2).add(new Character(tempArray[j]));
+                    myMap[j][i] = singleRow[j].charAt(0);
                 }
             }
-
-
-            //System.out.println(map2);
         }
         catch (IOException e)
         {
@@ -128,7 +136,7 @@ public class Map
     */
     protected char getTile(int[] coordinates)
     {
-        return map2.get(coordinates[1]).get(coordinates[0]);
+        return 'a';
     }
 
     /**
@@ -153,10 +161,10 @@ public class Map
         int height = mapClass.getMapHeight();
         int width = mapClass.getMapWidth();
 
-        int randomHeight = random.nextInt(height + 1);
-        int randomWidth = random.nextInt(width + 1);
+        int randomHeight = random.nextInt(height);
+        int randomWidth = random.nextInt(width);
 
-        if (map2.get(randomHeight).get(randomWidth) == '#' || map2.get(randomHeight).get(randomWidth) == 'G' || map2.get(randomHeight).get(randomWidth) == 'B') newGamePlayerPosition();
+        if (myMap[randomWidth][randomHeight] == '#' || myMap[randomWidth][randomHeight] == 'G' || myMap[randomWidth][randomHeight] == 'B') newGamePlayerPosition();
         else
         {
             playerPosition[0] = randomWidth;
