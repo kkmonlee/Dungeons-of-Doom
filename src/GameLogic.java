@@ -83,7 +83,13 @@ public class GameLogic
         Map mapClass = new Map();
         GameLogic gameLogic = new GameLogic();
 
-        if (Character.toString(tile).equals("#")) return "You are moving into a wall.";
+        if (mapClass.getBotPosition()[0] == tempPos[0] && mapClass.getBotPosition()[1] == tempPos[1])
+        {
+            System.out.println("Collision with bot! Game over!");
+            gameLogic.quitGame();
+            return null;
+        }
+        else if (Character.toString(tile).equals("#")) return "You are moving into a wall.";
         else if (Character.toString(tile).equals("E"))
         {
             mapClass.updatePlayerPosition(tempPos);
@@ -94,12 +100,6 @@ public class GameLogic
             mapClass.updatePlayerPosition(tempPos);
             mapClass.changeStatusGold();
             return "You are moving onto a gold tile";
-        }
-        else if (mapClass.getBotPosition()[0] == tempPos[0] && mapClass.getBotPosition()[1] == tempPos[1])
-        {
-            System.out.println("Collision with bot! Game over!");
-            gameLogic.quitGame();
-            return null;
         }
         else
         {
