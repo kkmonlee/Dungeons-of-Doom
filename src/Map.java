@@ -12,6 +12,7 @@ public class Map
 {
     //Player position coordinates in the form {x, y}
     private static int[] playerPosition = new int[2];
+    private static int[] botPosition = new int[2];
 
     //fields to do with the game play.
     private static int goldRequired = 0;
@@ -140,6 +141,16 @@ public class Map
     }
 
     /**
+     * Returns the position of the bot.
+     *
+     * @return The position of the bot
+     */
+    protected int[] getBotPosition()
+    {
+        return botPosition;
+    }
+
+    /**
      * Reads map from file and puts it in the 2D char array
      * @param fileName Name of the map's file
      * @throws FileNotFoundException - Exception thrown when "null" inputted.
@@ -204,17 +215,28 @@ public class Map
     /**
     * Updates the stored in memory location of the player.
     *
-    * @param location : New location of the player.
+    * @param newLocation : New location of the player.
     */
-    protected void updatePlayerPosition(int[] location)
+    protected void updatePlayerPosition(int[] newLocation)
     {
-        playerPosition[0] = location[0];
-        playerPosition[1] = location[1];
+        playerPosition[0] = newLocation[0];
+        playerPosition[1] = newLocation[1];
     }
 
     /**
+     * Updates the location of the bot.
+     *
+     * @param newLocation newLocation of the bot.
+     */
+    protected void updateBotPosition(int[] newLocation)
+    {
+        botPosition[0] = newLocation[0];
+        botPosition[1] = newLocation[1];
+    }
+
+
+    /**
     * Generates a new starting location of the player.
-    *
     */
     protected void newGamePlayerPosition()
     {
@@ -232,6 +254,28 @@ public class Map
         {
             playerPosition[0] = randomWidth;
             playerPosition[1] = randomHeight;
+        }
+    }
+
+    /**
+     * Generates a new starting location of the bot.
+     */
+    protected void newGameBotPosition()
+    {
+        Map mapClass = new Map();
+        Random random = new Random();
+
+        int height = mapClass.getMapHeight();
+        int width = mapClass.getMapWidth();
+
+        int randomHeight = random.nextInt(height);
+        int randomWidth = random.nextInt(width);
+
+        if (myMap[randomWidth][randomHeight] == '#' || myMap[randomWidth][randomHeight] == 'G') newGameBotPosition();
+        else
+        {
+            botPosition[0] = randomWidth;
+            botPosition[1] = randomHeight;
         }
     }
 }

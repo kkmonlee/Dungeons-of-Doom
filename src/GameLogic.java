@@ -95,9 +95,9 @@ public class GameLogic
             mapClass.changeStatusGold();
             return "You are moving onto a gold tile";
         }
-        else if (Character.toString(tile).equals("B"))
+        else if (mapClass.getBotPosition()[0] == tempPos[0] && mapClass.getBotPosition()[1] == tempPos[1])
         {
-            System.out.println("You moved into the bot. Game over");
+            System.out.println("Collision with bot! Game over!");
             gameLogic.quitGame();
             return null;
         }
@@ -124,11 +124,15 @@ public class GameLogic
         int x = playerPos[0];
         int y = playerPos[1];
 
+        int a = mapClass.getBotPosition()[0];
+        int b = mapClass.getBotPosition()[1];
+
         for (int i = y - 2; i <= y + 2; i++)
         {
             for (int j = x - 2; j <= x + 2; j++)
             {
                 if (x == j && y == i) viewPlayer += "P ";
+                else if (a == j && b == i) viewPlayer += "B ";
                 else if (j < 0 || j >= mapClass.getMapWidth()) viewPlayer += "X ";
                 else if (i < 0 || i >= mapClass.getMapHeight()) viewPlayer += "X ";
                 else viewPlayer += map[j][i] + " ";
@@ -146,7 +150,6 @@ public class GameLogic
     protected String pickup()
     {
         Map mapClass = new Map();
-        char tile = mapClass.getTile(mapClass.getPlayersPosition());
         if (mapClass.getStatusGold())
         {
             mapClass.changeStateOfTile();

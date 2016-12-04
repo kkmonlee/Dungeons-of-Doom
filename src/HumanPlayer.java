@@ -97,6 +97,7 @@ public class HumanPlayer
                 System.out.println("Invalid input, please try again.");
             default:
                 selectNextAction();
+                break;
         }
     }
 
@@ -106,11 +107,15 @@ public class HumanPlayer
     public static void main(String[] args) throws IOException
     {
         HumanPlayer humanPlayer = new HumanPlayer();
+        BotPlayer botPlayer = new BotPlayer();
         GameLogic gameLogic = new GameLogic();
         Map mapClass = new Map();
 
+
         mapClass.readMap("examplemap.txt");
+        mapClass.newGameBotPosition();
         mapClass.newGamePlayerPosition();
+
 
         System.out.println("x: " + mapClass.getPlayersPosition()[0] + " y: " + mapClass.getPlayersPosition()[1]);
 
@@ -128,6 +133,8 @@ public class HumanPlayer
                 System.out.println("You have not yet collected enough gold to leave the game.");
             }
             humanPlayer.selectNextAction();
+            botPlayer.main(null);
+
         }
 
         System.out.println("You are now quitting the game.");
