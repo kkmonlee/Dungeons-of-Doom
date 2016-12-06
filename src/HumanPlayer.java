@@ -89,6 +89,7 @@ public class HumanPlayer
                 break;
             case "l":
                 System.out.println(gameLogic.look(mapClass.getMap(), mapClass.getPlayersPosition()));
+                selectNextAction();
                 break;
             case "q":
                 gameLogic.gameFlick();

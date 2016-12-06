@@ -179,7 +179,6 @@ public class BotPlayer
     */
     public static void main(String[] args)
     {
-        Random random = new Random();
         BotPlayer botPlayer = new BotPlayer();
         Map mapClass = new Map();
         System.out.println("xB: " + mapClass.getBotPosition()[0] + " yB: " + mapClass.getBotPosition()[1]);
