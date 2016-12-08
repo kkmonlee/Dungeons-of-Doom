@@ -54,14 +54,9 @@ public class HumanPlayer
     }
 
     /**
-    * Uses getInputFromConsole() to read from console, processCommand() to process the reading,
-    * and then displays in console the final answer.
-    */
-
-    /**
      * Uses getInputFromConsole() to read from console, processCommand() to process the reading,
      * and then displays in console the final answer.
-     * @throws IOException // explain when an IOException will be thrown and why
+     * @throws IOException - Exception thrown when "null" inputted.
      */
     protected void selectNextAction() throws IOException
     {
@@ -74,27 +69,27 @@ public class HumanPlayer
 
         switch (response)
         {
-
             case "h":
                 System.out.println(gameLogic.hello());
                 break;
             case "mn":
-                gameLogic.move('n');
+                System.out.println(gameLogic.move('n'));
                 break;
             case "ms":
-                gameLogic.move('s');
+                System.out.println(gameLogic.move('s'));
                 break;
             case "me":
-                gameLogic.move('e');
+                System.out.println(gameLogic.move('e'));
                 break;
             case "mw":
-                gameLogic.move('w');
+                System.out.println(gameLogic.move('w'));
                 break;
             case "p":
-                gameLogic.pickup();
+                System.out.println(gameLogic.pickup());
                 break;
             case "l":
-                System.out.println(gameLogic.look(mapClass.getMap()));
+                System.out.println(gameLogic.look(mapClass.getMap(), mapClass.getPlayersPosition()));
+                selectNextAction();
                 break;
             case "q":
                 gameLogic.gameFlick();
@@ -103,6 +98,7 @@ public class HumanPlayer
                 System.out.println("Invalid input, please try again.");
             default:
                 selectNextAction();
+                break;
         }
     }
 
@@ -112,11 +108,15 @@ public class HumanPlayer
     public static void main(String[] args) throws IOException
     {
         HumanPlayer humanPlayer = new HumanPlayer();
+        BotPlayer botPlayer = new BotPlayer();
         GameLogic gameLogic = new GameLogic();
         Map mapClass = new Map();
 
+
         mapClass.readMap("examplemap.txt");
+        mapClass.newGameBotPosition();
         mapClass.newGamePlayerPosition();
+
 
         System.out.println("x: " + mapClass.getPlayersPosition()[0] + " y: " + mapClass.getPlayersPosition()[1]);
 
@@ -124,7 +124,18 @@ public class HumanPlayer
 
         while (gameLogic.gameRunning())
         {
+            if (mapClass.doWeHaveEnoughGold() && Character.toString(mapClass.getTile(mapClass.getPlayersPosition())).equals("E"))
+            {
+                System.out.println("You have now collected enough gold and you are standing on an exit square. Well done!");
+                break;
+            }
+            else if (!mapClass.doWeHaveEnoughGold() && Character.toString(mapClass.getTile(mapClass.getPlayersPosition())).equals("E"))
+            {
+                System.out.println("You have not yet collected enough gold to leave the game.");
+            }
             humanPlayer.selectNextAction();
+            botPlayer.main(null);
+
         }
 
         System.out.println("You are now quitting the game.");

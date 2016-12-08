@@ -10,10 +10,87 @@ import java.util.Random;
 
 public class Map
 {
-    static ArrayList<ArrayList<Character>> map2 = new ArrayList<>();
+    //Player position coordinates in the form {x, y}
     private static int[] playerPosition = new int[2];
+    private static int[] botPosition = new int[2];
+
+    //fields to do with the game play.
     private static int goldRequired = 0;
     private static String mapName;
+
+    //Declaring the 2D mapArray
+    private static char[][] myMap = null;
+
+    //Parameters of the mapArray
+    private static int myMapHeight = 0;
+    private static int myMapWidth = 0;
+
+    //fields to do with picking up gold.
+    private static boolean isOnGold = false;
+    private static int totalGold = 0;
+
+    /**
+     * Evaluates whether or not goldRequired is equal to totalGold.
+     * If so @return is true, else returns false.
+     *
+     * @return the boolean if two values are equal
+     */
+    protected boolean doWeHaveEnoughGold()
+    {
+        if (totalGold == goldRequired) return true;
+        else return false;
+    }
+
+    /**
+     * Increments the total gold of the player, after picking up some gold.
+     */
+    protected void incrementGold()
+    {
+        totalGold++;
+    }
+
+    /**
+     * Changes the state of a gold coin to a '.' after getting picked up.
+     */
+    protected void changeStateOfTile()
+    {
+        Map mapClass = new Map();
+        myMap[mapClass.getPlayersPosition()[0]][mapClass.getPlayersPosition()[1]] = '.';
+    }
+
+    /**
+     * Returns the value of the isOnGold boolean.
+     *
+     * @return the value of isOnGold.
+     */
+    protected boolean getStatusGold()
+    {
+        return isOnGold;
+    }
+
+    /**
+     * Resets to default isOnGold value
+     */
+    protected void resetStatusGold()
+    {
+        isOnGold = false;
+    }
+
+    /**
+     * Method which changes the boolean value of isOnGold
+     */
+    protected void changeStatusGold()
+    {
+        isOnGold = true;
+    }
+
+    /**
+     * Initialises the 2D char array for the map.
+     */
+    protected void initmyMap()
+    {
+        myMap = new char[myMapWidth][myMapHeight];
+    }
 
     /**
     * @return : Gold required to exit the current map.
@@ -28,19 +105,7 @@ public class Map
     */
     protected char[][] getMap()
     {
-        Map mapClass = new Map();
-
-        char[][] mapArray = new char[mapClass.getMapHeight()][mapClass.getMapWidth()];
-
-        for (int i = 0; i < mapClass.getMapHeight(); i++)
-        {
-            for (int j = 0; j < mapClass.getMapWidth(); j++)
-            {
-                mapArray[i][j] = map2.get(i).get(j);
-            }
-        }
-
-        return mapArray;
+        return myMap;
     }
 
     /**
@@ -48,7 +113,7 @@ public class Map
     */
     protected int getMapHeight()
     {
-        return map2.size();
+        return myMapHeight;
     }
 
     /**
@@ -56,7 +121,7 @@ public class Map
     */
     protected int getMapWidth()
     {
-        return map2.get(0).size();
+        return myMapWidth;
     }
 
     /**
@@ -76,16 +141,28 @@ public class Map
     }
 
     /**
-     * Reads map from file
+     * Returns the position of the bot.
+     *
+     * @return The position of the bot
+     */
+    protected int[] getBotPosition()
+    {
+        return botPosition;
+    }
+
+    /**
+     * Reads map from file and puts it in the 2D char array
      * @param fileName Name of the map's file
-     * @throws FileNotFoundException // explain when an IOException will be thrown and why
+     * @throws FileNotFoundException - Exception thrown when "null" inputted.
      */
     protected void readMap(String fileName) throws FileNotFoundException
     {
         File theMap = new File(fileName);
         FileReader fileIn = new FileReader(theMap);
         BufferedReader input = new BufferedReader(fileIn);
+
         ArrayList<String> tempMap = new ArrayList<>();
+        Map mapClass = new Map();
 
         try
         {
@@ -96,23 +173,27 @@ public class Map
                 tempMap.add(line);
                 line = input.readLine();
             }
+
             mapName = tempMap.get(0).substring(5, tempMap.get(0).length());
-            goldRequired = Integer.parseInt(tempMap.get(1).substring(4, tempMap.get(1).length()));
+            tempMap.remove(0);
 
-            for (int i = 2; i < tempMap.size(); i++)
+            goldRequired = Integer.valueOf(tempMap.get(0).substring(4, tempMap.get(0).length()));
+            tempMap.remove(0);
+
+            myMapHeight = tempMap.size();
+            myMapWidth = tempMap.get(0).length();
+
+            mapClass.initmyMap();
+
+            for (int i = 0; i < myMapHeight; i++)
             {
-                String row = tempMap.get(i);
-                map2.add(new ArrayList<Character>());
-                char[] tempArray = row.toCharArray();
+                String[] singleRow = tempMap.get(i).split("");
 
-                for (int j = 0; j < row.length(); j++)
+                for (int j = 0; j < singleRow.length; j++)
                 {
-                    map2.get(i - 2).add(new Character(tempArray[j]));
+                    myMap[j][i] = singleRow[j].charAt(0);
                 }
             }
-
-
-            //System.out.println(map2);
         }
         catch (IOException e)
         {
@@ -123,27 +204,39 @@ public class Map
 
     /**
     * Retrieves a tile on the map. If the location requested is outside bounds of the map, it returns 'X' wall.
-    * @param coordinates: Coordinates of the tile as an array.
+    * @param coordinates: Coordinates of the tile as an array {x, y} format.
     * @return : What the tile at the location requested contains.
     */
     protected char getTile(int[] coordinates)
     {
-        return map2.get(coordinates[1]).get(coordinates[0]);
+        return myMap[coordinates[0]][coordinates[1]];
     }
 
     /**
     * Updates the stored in memory location of the player.
     *
-    * @param location : New location of the player.
+    * @param newLocation : New location of the player.
     */
-    protected void updatePlayerPosition(int[] location)
+    protected void updatePlayerPosition(int[] newLocation)
     {
-
+        playerPosition[0] = newLocation[0];
+        playerPosition[1] = newLocation[1];
     }
 
     /**
+     * Updates the location of the bot.
+     *
+     * @param newLocation newLocation of the bot.
+     */
+    protected void updateBotPosition(int[] newLocation)
+    {
+        botPosition[0] = newLocation[0];
+        botPosition[1] = newLocation[1];
+    }
+
+
+    /**
     * Generates a new starting location of the player.
-    *
     */
     protected void newGamePlayerPosition()
     {
@@ -153,14 +246,36 @@ public class Map
         int height = mapClass.getMapHeight();
         int width = mapClass.getMapWidth();
 
-        int randomHeight = random.nextInt(height + 1);
-        int randomWidth = random.nextInt(width + 1);
+        int randomHeight = random.nextInt(height);
+        int randomWidth = random.nextInt(width);
 
-        if (map2.get(randomHeight).get(randomWidth) == '#' || map2.get(randomHeight).get(randomWidth) == 'G' || map2.get(randomHeight).get(randomWidth) == 'B') newGamePlayerPosition();
+        if (myMap[randomWidth][randomHeight] == '#' || myMap[randomWidth][randomHeight] == 'G' || myMap[randomWidth][randomHeight] == 'B') newGamePlayerPosition();
         else
         {
             playerPosition[0] = randomWidth;
             playerPosition[1] = randomHeight;
+        }
+    }
+
+    /**
+     * Generates a new starting location of the bot.
+     */
+    protected void newGameBotPosition()
+    {
+        Map mapClass = new Map();
+        Random random = new Random();
+
+        int height = mapClass.getMapHeight();
+        int width = mapClass.getMapWidth();
+
+        int randomHeight = random.nextInt(height);
+        int randomWidth = random.nextInt(width);
+
+        if (myMap[randomWidth][randomHeight] == '#' || myMap[randomWidth][randomHeight] == 'G') newGameBotPosition();
+        else
+        {
+            botPosition[0] = randomWidth;
+            botPosition[1] = randomHeight;
         }
     }
 }

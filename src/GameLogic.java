@@ -9,8 +9,8 @@ public class GameLogic
     private static boolean running = true;
 
     /**
-    * // explain what this does
-    * @return : if the game is running
+    * Returns the boolean to check whether the game is still running or not.
+    * @return : boolean, if the game is running or not.
     */
     protected boolean gameRunning()
     {
@@ -26,8 +26,8 @@ public class GameLogic
     }
 
     /**
-    * // explain what this does
-    * @return : Returns back amount of gold player requires to exit the Dungeon
+    * Prints to the console the amount of gold the player needs to exit the game.
+    * @return : goldRequired
     */
     protected String hello()
     {
@@ -44,43 +44,101 @@ public class GameLogic
     protected String move(char  direction)
     {
         Map mapClass = new Map();
+        GameLogic gameLogic = new GameLogic();
+
         int[] playerPosition = mapClass.getPlayersPosition();
         System.out.println(playerPosition[0] + " " + playerPosition[1]);
 
         switch (direction)
         {
             case 'n':
-
-
+                int[] tempPosN = {playerPosition[0], playerPosition[1] - 1};
+                char tileAbove = mapClass.getTile(tempPosN);
+                return gameLogic.checkMove(tempPosN, tileAbove);
+            case 's':
+                int[] tempPosS = {playerPosition[0], playerPosition[1] + 1};
+                char tileBelow = mapClass.getTile(tempPosS);
+                return gameLogic.checkMove(tempPosS, tileBelow);
+            case 'e':
+                int[] tempPosE = {playerPosition[0] + 1, playerPosition[1]};
+                char tileRight = mapClass.getTile(tempPosE);
+                return gameLogic.checkMove(tempPosE, tileRight);
+            case 'w':
+                int[] tempPosW = {playerPosition[0] - 1, playerPosition[1]};
+                char tileLeft = mapClass.getTile(tempPosW);
+                return gameLogic.checkMove(tempPosW, tileLeft);
         }
         return null;
     }
 
     /**
+     * Checks the corresponding tile for a valid move
+     *
+     * @param tempPos temporary position of player according to the input
+     * @param tile tile at that temporary position
+     * @return returns the result of evaluating the parameters
+     */
+    protected String checkMove(int[] tempPos, char tile)
+    {
+        Map mapClass = new Map();
+        GameLogic gameLogic = new GameLogic();
+
+        if (mapClass.getBotPosition()[0] == tempPos[0] && mapClass.getBotPosition()[1] == tempPos[1])
+        {
+            System.out.println("Collision with bot! Game over!");
+            gameLogic.quitGame();
+            return null;
+        }
+        else if (Character.toString(tile).equals("#")) return "You are moving into a wall.";
+        else if (Character.toString(tile).equals("E"))
+        {
+            mapClass.updatePlayerPosition(tempPos);
+            return "You are moving onto an exit tile";
+        }
+        else if (Character.toString(tile).equals("G"))
+        {
+            mapClass.updatePlayerPosition(tempPos);
+            mapClass.changeStatusGold();
+            return "You are moving onto a gold tile";
+        }
+        else
+        {
+            mapClass.updatePlayerPosition(tempPos);
+            return "You moved successfully";
+        }
+    }
+
+    /**
      * Converts the map from a 2D char array to a single string.
      * Should only return a 5x5 grid. With the player in the middle..
-     * @param map explain what map is
-     * @return explain what this method returns
+     *
+     * @param map : The map is the whole grid, in which the player can move.
+     * @return : The map in the form of a string.
      */
-    protected String look(char[][] map)
+    protected String look(char[][] map, int[] playerPos)
     {
         Map mapClass = new Map();
 
         String viewPlayer = "";
 
+        int x = playerPos[0];
+        int y = playerPos[1];
 
-        for (int i = mapClass.getPlayersPosition()[1] - 2; i <= mapClass.getPlayersPosition()[1] + 2; i++)
+        int a = mapClass.getBotPosition()[0];
+        int b = mapClass.getBotPosition()[1];
+
+        for (int i = y - 2; i <= y + 2; i++)
         {
-            for (int j = mapClass.getPlayersPosition()[0] - 2; j <= mapClass.getPlayersPosition()[0] + 2; j++)
+            for (int j = x - 2; j <= x + 2; j++)
             {
-                if (mapClass.getPlayersPosition()[0] == j && mapClass.getPlayersPosition()[1] == i) viewPlayer += "P ";
-                else if (i < 0 || i > mapClass.getMapHeight() - 1) viewPlayer += "# ";
-                else if (j < 0 || j > mapClass.getMapWidth() - 1) viewPlayer += "# ";
-                else viewPlayer += map[i][j] + " ";
+                if (x == j && y == i) viewPlayer += "P ";
+                else if (a == j && b == i) viewPlayer += "B ";
+                else if (j < 0 || j >= mapClass.getMapWidth()) viewPlayer += "X ";
+                else if (i < 0 || i >= mapClass.getMapHeight()) viewPlayer += "X ";
+                else viewPlayer += map[j][i] + " ";
             }
             viewPlayer += "\n";
         }
-
         return viewPlayer;
     }
 
@@ -91,11 +149,23 @@ public class GameLogic
     */
     protected String pickup()
     {
-        return null;
+        Map mapClass = new Map();
+        if (mapClass.getStatusGold())
+        {
+            mapClass.changeStateOfTile();
+            mapClass.resetStatusGold();
+            mapClass.incrementGold();
+            return "You have picked up a gold coin!";
+        }
+        else
+        {
+            return "No gold in this location, sorry!";
+        }
+
     }
 
     /**
-    * Quits the game, shutting down the application
+    * Quits the game, shutting down the game
     */
     protected void quitGame()
     {
